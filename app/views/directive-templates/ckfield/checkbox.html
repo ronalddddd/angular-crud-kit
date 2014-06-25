@@ -4,9 +4,9 @@
             <input  class=""
                     tooltip-html-unsafe="{{err.rendered}}"
                     type="checkbox"
-                    ng-model="model[field.field_key]"
-                    ng-required="field.field_required"/>
-            {{field.field_title}}
+                    ng-model="model[fieldName]"
+                    ng-required="false"/>
+            {{title}}
         </label>
     </div>
 </div>

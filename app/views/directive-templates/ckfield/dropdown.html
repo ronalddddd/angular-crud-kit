@@ -1,14 +1,14 @@
 <div class="row">
     <div class="col-md-12 form-group {{(err)? 'has-error':''}}">
-        <label class="control-label">{{field.field_title}}</label>
+        <label class="control-label">{{title}}</label>
         <div class="input-group">
             <select
                     class="form-control"
                     tooltip-html-unsafe="{{err.rendered}}"
-                    ng-model="model[field.field_key]"
+                    ng-model="model[fieldName]"
                     ng-options="option.option_id as option.option_title for option in field.field_options"
                     sng-required="field.field_required"></select>
-            <span class="required-error" ng-show="field.field_required && !model[field.field_key]">* required</span>
+            <span class="required-error" ng-show="field.field_required && !model[fieldName]">* required</span>
         </div>
     </div>
 </div>

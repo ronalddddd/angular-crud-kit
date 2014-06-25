@@ -9,37 +9,35 @@
 angular.module('crudKit')
   .directive('ckField', function ($http, $compile) {
 
-    var getTemplateUrl = function(schemaProperty) {
-      var type = schemaProperty.type;
+    var getTemplateUrl = function(type) {
       var templateUrl = '';
 
       switch(type) {
 //        case 'TYPEAHEAD':
 //          templateUrl = 'views/directive-templates/ckfield/typeahead.html';
 //          break;
-        case 'EMAIL':
+        case 'email':
           templateUrl = 'views/directive-templates/ckfield/email.html';
           break;
-        case 'PHONE':
+        case 'phone':
           templateUrl = 'views/directive-templates/ckfield/phone.html';
           break;
-        case 'TEXTAREA':
+        case 'textarea':
           templateUrl = 'views/directive-templates/ckfield/textarea.html';
           break;
-        case 'BOOLEAN':
-        case 'TINYINT':
+        case 'boolean':
           templateUrl = 'views/directive-templates/ckfield/checkbox.html';
           break;
-        case 'DATETIME':
+        case 'date-time':
           templateUrl = 'views/directive-templates/ckfield/date.html';
           break;
-        case 'ENUM':
+        case 'enum':
           templateUrl = 'views/directive-templates/ckfield/dropdown.html';
           break;
         case 'hidden':
           templateUrl = 'views/directive-templates/ckfield/hidden.html';
           break;
-        case 'PASSWORD':
+        case 'password':
           templateUrl = 'views/directive-templates/ckfield/password.html';
           break;
         case 'radio':
@@ -59,7 +57,7 @@ angular.module('crudKit')
       $scope.err = null;
 
       /** Type-specific methods */
-      switch($scope.field.field_type){
+      switch($scope.type){
 //        case 'TYPEAHEAD':
 //          $scope.typeaheadSelect = function(item){
 //            $scope.selectedItem = item;
@@ -78,11 +76,18 @@ angular.module('crudKit')
           break;
       }
 
+      $scope.$on('validationError',function(event, err){
+         console.debug(err);
+      });
+
     };
 
     var linker = function(scope, element) {
-      // GET template content from path
-      var templateUrl = getTemplateUrl(scope.field, scope.viewModel);
+      var property = scope.jsonSchema.properties[scope.fieldName],
+          templateUrl = getTemplateUrl(property.format || property.type);
+
+      scope.title = property.title || "";
+
       $http.get(templateUrl).success(function(data) {
         element.html(data);
         $compile(element.contents())(scope);
@@ -94,9 +99,9 @@ angular.module('crudKit')
       controller: controller,
       restrict: 'E',
       scope: {
-        field:'=',
-        model:'=',
-        viewModel:'='
+        jsonSchema:'=',
+        fieldName:'=',
+        model:'='
       },
       link: linker
     };

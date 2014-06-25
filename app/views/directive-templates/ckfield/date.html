@@ -1,10 +1,10 @@
 <div class="row">
     <div class="col-md-12 form-group {{(err)? 'has-error':''}}">
-        <label class="control-label">{{field.field_title}}</label>
+        <label class="control-label">{{title}}</label>
         <div class="input-group">
             <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"> </i></span>
             <input type="text" class="form-control"
-                   ng-model="model[field.field_key]" tooltip-html-unsafe="{{err.rendered}}" placeholder="{{field.field_title}}"
+                   ng-model="model[fieldName]" tooltip-html-unsafe="{{err.rendered}}" placeholder="{{title}}"
                    datepicker-popup="dd-MMMM-yyyy" is-open="opened" close-text="Close" />
         </div>
     </div>
