@@ -3,7 +3,7 @@
         <label class="control-label">{{title}}</label>
         <div class="input-group">
             <span class="input-group-addon"><i class="glyphicon glyphicon-phone-alt"> </i></span>
-            <input tooltip-html-unsafe="{{err.rendered}}" type="text" ng-model="model[fieldName]" ng-required="field.field_required" class="form-control" placeholder="{{title}}">
+            <input tooltip-html-unsafe="{{err.message}}" type="text" ng-model="model[fieldName]" ng-required="field.field_required" class="form-control" placeholder="{{title}}">
             <!--<span class="input-group-addon">.00</span>-->
         </div>
     </div>

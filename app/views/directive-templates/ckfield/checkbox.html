@@ -2,7 +2,7 @@
     <div class="col-md-12 form-group checkbox {{(err)? 'has-error':''}}">
         <label class="control-label col-md-12">
             <input  class=""
-                    tooltip-html-unsafe="{{err.rendered}}"
+                    tooltip-html-unsafe="{{err.message}}"
                     type="checkbox"
                     ng-model="model[fieldName]"
                     ng-required="false"/>

@@ -76,8 +76,18 @@ angular.module('crudKit')
           break;
       }
 
+      $scope.$on('validationReset', function(event, schema){
+        if($scope.jsonSchema === schema){
+          console.debug("EVENT: validationReset");
+          $scope.err = null;
+        }
+      });
+
       $scope.$on('validationError',function(event, err){
          console.debug(err);
+         if(err.dataPath === "/"+$scope.fieldName){
+             $scope.err = err;
+         }
       });
 
     };

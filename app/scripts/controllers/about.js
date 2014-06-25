@@ -8,7 +8,7 @@
  * Controller of the crudKit
  */
 angular.module('crudKit')
-    .controller('AboutCtrl', function ($scope, JSONValidator) {
+    .controller('AboutCtrl', function ($scope, JSONValidator, $rootScope) {
         $scope.widgetSchema = {
             "$schema":  "http://json-schema.org/draft-04/schema",
             "title":    "ACME Widget",
@@ -42,6 +42,12 @@ angular.module('crudKit')
 
         $scope.widgetIsValid = false;
         $scope.$watch("widgetInstance",function(val){
-            $scope.widgetIsValid = JSONValidator.validate($scope.widgetInstance, $scope.widgetSchema).valid;
-        },true)
+            $scope.validationResult = JSONValidator.validate($scope.widgetInstance, $scope.widgetSchema);
+            $scope.widgetIsValid = $scope.validationResult.valid;
+        },true);
+
+        $scope.clearErrors = function(){
+            console.log("CLEAR...");
+            $rootScope.$broadcast('validationReset', $scope.widgetSchema);
+        };
     });

@@ -3,27 +3,32 @@
         <h2>Schema</h2>
         <pre>{{widgetSchema | json}}</pre>
 
-        <h2>Data</h2>
+        <h2>Data <span class="btn btn-xs" ng-class="{'btn-danger':!widgetIsValid, 'btn-success':widgetIsValid}">{{(widgetIsValid)? "Valid":"Invalid"}}</span></h2>
         <pre>{{widgetInstance | json}}</pre>
 
         <h2>Validation result</h2>
         <small><code>JSONValidator.validate($scope.widgetInstance, $scope.widgetSchema)</code></small>
-        <pre>{{widgetIsValid | json}}</pre>
+        <pre>{{validationResult | json}}</pre>
     </tab>
 
     <tab heading="ckField">
-        <h2>Examples</h2>
+        <h2>Examples        <button type="buttond" class="btn btn-sm pull-right" ng-click="clearErrors()">Clear Errors</button></h2>
+        <legend></legend>
         <code>&lt;ck-field field-name=&quot;'title'&quot; json-schema=&quot;widgetSchema&quot; model=&quot;widgetInstance&quot;&gt;&lt;/ck-field&gt;</code>
         <ck-field field-name="'title'" json-schema="widgetSchema" model="widgetInstance"></ck-field>
+        <hr>
 
         <code>&lt;ck-field field-name=&quot;'useful'&quot; json-schema=&quot;widgetSchema&quot; model=&quot;widgetInstance&quot;&gt;&lt;/ck-field&gt;</code>
         <ck-field field-name="'useful'" json-schema="widgetSchema" model="widgetInstance"></ck-field>
+        <hr>
 
         <code>&lt;ck-field field-name=&quot;'created'&quot; json-schema=&quot;widgetSchema&quot; model=&quot;widgetInstance&quot;&gt;&lt;/ck-field&gt;</code>
         <ck-field field-name="'created'" json-schema="widgetSchema" model="widgetInstance"></ck-field>
+        <hr>
 
         <h2>Resulting Model Data <span class="btn btn-xs" ng-class="{'btn-danger':!widgetIsValid, 'btn-success':widgetIsValid}">{{(widgetIsValid)? "Valid":"Invalid"}}</span></h2>
         <pre>{{widgetInstance | json}}</pre>
+        <hr>
     </tab>
     <tab heading="ckForm"></tab>
     <tab heading="API Service"></tab>

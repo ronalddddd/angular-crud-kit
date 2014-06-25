@@ -4,7 +4,7 @@
         <div class="input-group">
             <select
                     class="form-control"
-                    tooltip-html-unsafe="{{err.rendered}}"
+                    tooltip-html-unsafe="{{err.message}}"
                     ng-model="model[fieldName]"
                     ng-options="option.option_id as option.option_title for option in field.field_options"
                     sng-required="field.field_required"></select>
