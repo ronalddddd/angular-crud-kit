@@ -1,9 +1,11 @@
 <tabset>
     <tab heading="JSONValidator">
         <h2>Schema</h2>
+        <code>$scope.widgetSchema</code>
         <pre>{{widgetSchema | json}}</pre>
 
         <h2>Data <span class="btn btn-xs" ng-class="{'btn-danger':!widgetIsValid, 'btn-success':widgetIsValid}">{{(widgetIsValid)? "Valid":"Invalid"}}</span></h2>
+        <code>$scope.widgetInstance</code>
         <pre>{{widgetInstance | json}}</pre>
 
         <h2>Validation result</h2>

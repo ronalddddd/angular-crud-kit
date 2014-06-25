@@ -47,7 +47,7 @@ angular.module('crudKit')
         },true);
 
         $scope.clearErrors = function(){
-            console.log("CLEAR...");
+            console.log("Clearing Errors...");
             $rootScope.$broadcast('validationReset', $scope.widgetSchema);
         };
     });
