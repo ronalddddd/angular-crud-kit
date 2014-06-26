@@ -1,18 +1,14 @@
 <legend>
-    <h2>{{ form.form_name }} <small>{{model[viewModel.meta.display_field] || "new"}}</small></h2>
+    <h2>{{ title || schema.title }} <small>{{ description || schema.description}}</small></h2>
 </legend>
 
-<form name="{{form_id}}" id="{{form_id}}" class="well clearfix">
+<form name="{{name}}" class="well clearfix">
     <!--<div ng-repeat="field in form.form_fields">-->
-    <div class="col-md-{{colspan}}" ng-repeat="form_fields in form_field_pages">
-        <div ng-repeat="field in form_fields">
-            <field field="field" model="model" view-model="viewModel">
-
-            </field>
-        </div>
+    <div ng-repeat="(fieldName,property) in schema.properties">
+        <ck-field field-name="fieldName" json-schema="schema" model="model"></ck-field>
     </div>
 
-    <small class="col-md-3 pull-right text-right">{{ form.form_name }} [{{model.id || "new"}}]</small>
+    <small class="col-md-3 pull-right text-right">{{ schema.title }} [{{model.id || "new"}}]</small>
 </form>
 
 <div class="form-actions clearfix">
@@ -34,14 +30,13 @@
 </div>
 
 <div ng-show="debug">
-    <h1>Crud Directive Debug</h1>
+    <h1>ckForm Directive Debug</h1>
     <accordion>
-        <accordion-group heading="Model Instance">
+        <accordion-group heading="Data">
             <pre>{{model | json}}</pre>
         </accordion-group>
-        <accordion-group heading="View Model Meta">
-            <pre>{{viewModel.meta | json}}</pre>
+        <accordion-group heading="Schema">
+            <pre>{{schema | json}}</pre>
         </accordion-group>
     </accordion>
-
 </div>

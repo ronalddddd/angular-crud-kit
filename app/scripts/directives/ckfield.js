@@ -43,6 +43,9 @@ angular.module('crudKit')
         case 'radio':
           templateUrl = 'views/directive-templates/ckfield/radio.html';
           break;
+        case 'integer':
+          templateUrl = 'views/directive-templates/ckfield/number.html';
+          break;
 //        case 'TEXT':
 //        case 'VARCHAR':
         default:
@@ -78,25 +81,33 @@ angular.module('crudKit')
 
       $scope.$on('validationReset', function(event, schema){
         if($scope.jsonSchema === schema){
-          console.debug("EVENT: validationReset");
+          console.info("validationReset on field `%s`",$scope.fieldName);
           $scope.err = null;
         }
       });
 
       $scope.$on('validationError',function(event, err){
-         console.debug(err);
-         if(err.dataPath === "/"+$scope.fieldName){
-             $scope.err = err;
-         }
+        var schemaPath = err.schemaPath.split("/").splice(1),
+            propertyName = err.dataPath.split("/").splice(1).pop();
+
+        if (!propertyName && schemaPath.length > 1  && schemaPath[0] === "required"){
+          propertyName =  $scope.jsonSchema.required[schemaPath[1]];
+        }
+
+        if(propertyName === $scope.fieldName){
+          console.info(err);
+          $scope.err = err;
+        }
       });
 
     };
 
     var linker = function(scope, element) {
       var property = scope.jsonSchema.properties[scope.fieldName],
-          templateUrl = getTemplateUrl(property.format || property.type);
+          templateUrl = getTemplateUrl((property.enum)? "enum" : property.format || property.type);
 
       scope.title = property.title || "";
+      scope.property = property;
 
       $http.get(templateUrl).success(function(data) {
         element.html(data);

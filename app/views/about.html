@@ -14,7 +14,7 @@
     </tab>
 
     <tab heading="ckField">
-        <h2>Examples        <button type="buttond" class="btn btn-sm pull-right" ng-click="clearErrors()">Clear Errors</button></h2>
+        <h2>Examples        <button type="buttond" class="btn btn-sm" ng-click="validate()">Validate</button> &nbsp; <button type="buttond" class="btn btn-sm" ng-click="clearErrors()">Clear Errors</button></h2>
         <legend></legend>
         <code>&lt;ck-field field-name=&quot;'title'&quot; json-schema=&quot;widgetSchema&quot; model=&quot;widgetInstance&quot;&gt;&lt;/ck-field&gt;</code>
         <ck-field field-name="'title'" json-schema="widgetSchema" model="widgetInstance"></ck-field>
@@ -32,6 +32,12 @@
         <pre>{{widgetInstance | json}}</pre>
         <hr>
     </tab>
-    <tab heading="ckForm"></tab>
-    <tab heading="API Service"></tab>
+
+    <tab heading="ckForm">
+        <ck-form name="widgetForm" schema="widgetSchema" model="widgetInstance" on-save="saveWidget($model, $next)" debug="true"></ck-form>
+    </tab>
+
+    <tab heading="API Service">
+
+    </tab>
 </tabset>
