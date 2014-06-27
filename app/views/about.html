@@ -2,19 +2,19 @@
     <tab heading="JSONValidator">
         <h2>Schema</h2>
         <code>$scope.widgetSchema</code>
-        <pre>{{widgetSchema | json}}</pre>
+        <div ui-ace="{mode: 'json'}" ng-model="$parent.widgetSchemaStr"></div>
 
         <h2>Data <span class="btn btn-xs" ng-class="{'btn-danger':!widgetIsValid, 'btn-success':widgetIsValid}">{{(widgetIsValid)? "Valid":"Invalid"}}</span></h2>
         <code>$scope.widgetInstance</code>
-        <pre>{{widgetInstance | json}}</pre>
+        <div ui-ace="{mode: 'json'}" ng-model="$parent.widgetInstanceStr"></div>
 
-        <h2>Validation result</h2>
+        <h2>Validation result <button type="buttond" class="btn btn-sm" ng-click="validate()">Validate</button> &nbsp; <button type="buttond" class="btn btn-sm" ng-click="clearErrors()">Clear Errors</button></h2>
         <small><code>JSONValidator.validate($scope.widgetInstance, $scope.widgetSchema)</code></small>
         <pre>{{validationResult | json}}</pre>
     </tab>
 
     <tab heading="ckField">
-        <h2>Examples        <button type="buttond" class="btn btn-sm" ng-click="validate()">Validate</button> &nbsp; <button type="buttond" class="btn btn-sm" ng-click="clearErrors()">Clear Errors</button></h2>
+        <h2>Examples</h2>
         <legend></legend>
         <code>&lt;ck-field field-name=&quot;'title'&quot; json-schema=&quot;widgetSchema&quot; model=&quot;widgetInstance&quot;&gt;&lt;/ck-field&gt;</code>
         <ck-field field-name="'title'" json-schema="widgetSchema" model="widgetInstance"></ck-field>
@@ -38,6 +38,6 @@
     </tab>
 
     <tab heading="API Service">
-
+        <p class="lead text-center"><br><br><i class="fa fa-times-circle fa-5x"></i><br>coming soon...</p>
     </tab>
 </tabset>

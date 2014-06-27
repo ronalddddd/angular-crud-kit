@@ -1,6 +1,6 @@
 {
   "name": "crud-kit",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "dependencies": {
     "angular": "1.2.16",
     "json3": "~3.3.1",
@@ -14,7 +14,7 @@
     "angular-route": "1.2.16",
     "angular-ui-bootstrap-bower": "~0.10.0",
     "tv4": "~1.0.17",
-    "font-awesome": "~4.1.0"
+    "angular-ui-ace": "bower"
   },
   "devDependencies": {
     "angular-mocks": "1.2.16",

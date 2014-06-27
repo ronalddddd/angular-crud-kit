@@ -6,17 +6,19 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css" />
+
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
-    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css" />
     <!-- endbower -->
+
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
   </head>
-  <body ng-app="crudKit">
+  <body ng-app="crudKit.demo">
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -56,9 +58,11 @@
     <script src="bower_components/json3/lib/json3.min.js"></script>
     <![endif]-->
 
-    <!-- build:js(.) scripts/vendor.js -->
+    <!-- build:js(./) scripts/vendor.js -->
+    <script src="bower_components/ace-builds/src-noconflict/ace.js"></script>
+    <script src="bower_components/ace-builds/src-noconflict/mode-json.js"></script>
+    <script src="bower_components/ace-builds/src-noconflict/mode-javascript.js"></script>
     <!-- bower:js -->
-    <script src="bower_components/tv4/tv4.js"></script>
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/json3/lib/json3.js"></script>
@@ -70,6 +74,8 @@
     <script src="bower_components/angular-touch/angular-touch.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="bower_components/angular-ui-bootstrap-bower/ui-bootstrap-tpls.js"></script>
+    <script src="bower_components/tv4/tv4.js"></script>
+    <script src="bower_components/angular-ui-ace/ui-ace.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -80,6 +86,7 @@
         <script src="scripts/directives/ckfield.js"></script>
         <script src="scripts/services/jsonvalidator.js"></script>
         <script src="scripts/directives/ckform.js"></script>
+        <script src="scripts/demo.js"></script>
         <!-- endbuild -->
 </body>
 </html>

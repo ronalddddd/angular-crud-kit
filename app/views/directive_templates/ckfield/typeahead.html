@@ -1,11 +1,11 @@
 <div class="row">
     <div class="col-md-12 form-group {{(err)? 'has-error':''}}">
         <!--<span class="input-group-addon">$</span>-->
-            <label class="control-label">{{title}}: {{selectedItemDisplayStr}}</label>
+            <label class="control-label">{{title || fieldName}}: {{selectedItemDisplayStr}}</label>
         <div class="input-group">
             <!--TODO-->
             <input
-                    type="text" class="form-control" placeholder="{{title}}" tooltip-html-unsafe="{{err.message}}"
+                    type="text" class="form-control" placeholder="{{title || fieldName}}" tooltip-html-unsafe="{{err.message}}"
                     ng-model="model[fieldName]"
                     ng-focus=""
                     typeahead="item[field.field_referencesKey] as api[field.field_references].getLookupValue(item) for item in api[field.field_references].lookup($viewValue) | filter:$viewValue | limitTo:8"

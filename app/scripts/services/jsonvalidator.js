@@ -15,7 +15,10 @@ angular.module('crudKit')
         } else {
             /** custom format validators */
             tv4.addFormat('date-time', function(data, schema){
-                return (angular.isDate(data))? null:'Must be a Date';
+              if (typeof data === 'string'){
+                data = new Date(data);
+              }
+              return (angular.isDate(data))? null:'Must be a Date';
             });
             // TODO: other basic format validators like email and phone
 

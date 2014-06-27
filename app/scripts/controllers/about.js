@@ -8,7 +8,7 @@
  * Controller of the crudKit
  */
 angular.module('crudKit')
-  .controller('AboutCtrl', function ($scope, JSONValidator, $rootScope) {
+  .controller('AboutCtrl', function ($scope, JSONValidator, $rootScope, $filter) {
     $scope.widgetSchema = {
       "$schema":  "http://json-schema.org/draft-04/schema",
       "title":    "ACME Widget",
@@ -16,6 +16,7 @@ angular.module('crudKit')
       "properties": {
         "title": {
           "title":"Title",
+          "description":"Something to describe this Widget",
           "type":["string", "null"]
         },
 
@@ -27,7 +28,8 @@ angular.module('crudKit')
 
         "someInt":{
           "title":"Some Integer",
-          type: ['integer', 'null']
+          "type": ['integer', 'null'],
+          "default": 150
         },
 
         "useful": {
@@ -52,15 +54,13 @@ angular.module('crudKit')
           "format":"textarea"
         }
       },
-      "required": ["title", "summary"]
+      "required": ["title", "summary","context_id"]
     };
 
-    $scope.widgetInstance = {
-//      title: null,
-//      useful: false,
-//      created: new Date()
-//            created: "xx123adsa"
-    };
+    $scope.widgetInstance = {};
+
+    $scope.widgetSchemaStr = $filter('json')($scope.widgetSchema);
+    $scope.widgetInstanceStr= $filter('json')($scope.widgetInstance);
 
     $scope.widgetIsValid = false;
 
@@ -69,10 +69,33 @@ angular.module('crudKit')
       $scope.widgetIsValid = $scope.validationResult.valid;
     };
 
+    $scope.updateSchema = function(jsonStr){
+      $scope.widgetSchema = angular.fromJson(jsonStr);
+      console.log($scope.widgetSchema);
+    };
+
+    $scope.$watch("widgetSchemaStr",function(val){
+      $scope.widgetSchema = angular.fromJson(val);
+      console.debug($scope.widgetSchema);
+    }, true);
+
+    $scope.$watch("widgetInstanceStr",function(val){
+      $scope.widgetInstance = angular.fromJson(val);
+      console.debug($scope.widgetInstance);
+    }, true);
+
+    $scope.$watch("widgetInstance",function(val){
+      $scope.widgetInstanceStr = $filter('json')(val);
+      console.debug($scope.widgetInstanceStr);
+    }, true);
+
     $scope.$watch("widgetInstance",function(val){
 //            $scope.validationResult = JSONValidator.validate($scope.widgetInstance, $scope.widgetSchema);
 //            $scope.widgetIsValid = $scope.validationResult.valid;
     },true);
+
+    /** Example ckFields */
+    $scope.exampleFields = '';
 
     $scope.clearErrors = function(){
       console.log("Clearing Errors...");

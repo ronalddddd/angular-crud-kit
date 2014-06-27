@@ -1,8 +1,8 @@
 <div class="row">
     <div class="col-md-12 form-group {{(err)? 'has-error':''}}">
         <!--<span class="input-group-addon">$</span>-->
-            <label class="control-label">{{title}}</label>
-            <input tooltip-html-unsafe="{{err.message}}" type="number" ng-model="model[fieldName]" ng-required="field.field_required" class="form-control" placeholder="{{title}}">
+            <label class="control-label">{{title || fieldName}}</label>
+            <input tooltip-html-unsafe="{{err.message}}" type="number" ng-model="model[fieldName]" ng-required="field.field_required" class="form-control" placeholder="{{title || fieldName}}">
         <!--<span class="input-group-addon">.00</span>-->
     </div>
 </div>

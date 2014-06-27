@@ -14,42 +14,42 @@ angular.module('crudKit')
 
       switch(type) {
 //        case 'TYPEAHEAD':
-//          templateUrl = 'views/directive-templates/ckfield/typeahead.html';
+//          templateUrl = 'views/directive_templates/ckfield/typeahead.html';
 //          break;
         case 'email':
-          templateUrl = 'views/directive-templates/ckfield/email.html';
+          templateUrl = 'views/directive_templates/ckfield/email.html';
           break;
         case 'phone':
-          templateUrl = 'views/directive-templates/ckfield/phone.html';
+          templateUrl = 'views/directive_templates/ckfield/phone.html';
           break;
         case 'textarea':
-          templateUrl = 'views/directive-templates/ckfield/textarea.html';
+          templateUrl = 'views/directive_templates/ckfield/textarea.html';
           break;
         case 'boolean':
-          templateUrl = 'views/directive-templates/ckfield/checkbox.html';
+          templateUrl = 'views/directive_templates/ckfield/checkbox.html';
           break;
         case 'date-time':
-          templateUrl = 'views/directive-templates/ckfield/date.html';
+          templateUrl = 'views/directive_templates/ckfield/date.html';
           break;
         case 'enum':
-          templateUrl = 'views/directive-templates/ckfield/dropdown.html';
+          templateUrl = 'views/directive_templates/ckfield/dropdown.html';
           break;
         case 'hidden':
-          templateUrl = 'views/directive-templates/ckfield/hidden.html';
+          templateUrl = 'views/directive_templates/ckfield/hidden.html';
           break;
         case 'password':
-          templateUrl = 'views/directive-templates/ckfield/password.html';
+          templateUrl = 'views/directive_templates/ckfield/password.html';
           break;
         case 'radio':
-          templateUrl = 'views/directive-templates/ckfield/radio.html';
+          templateUrl = 'views/directive_templates/ckfield/radio.html';
           break;
         case 'integer':
-          templateUrl = 'views/directive-templates/ckfield/number.html';
+          templateUrl = 'views/directive_templates/ckfield/number.html';
           break;
 //        case 'TEXT':
 //        case 'VARCHAR':
         default:
-          templateUrl = 'views/directive-templates/ckfield/textfield.html';
+          templateUrl = 'views/directive_templates/ckfield/textfield.html';
           break;
       }
       return templateUrl;
@@ -108,6 +108,7 @@ angular.module('crudKit')
 
       scope.title = property.title || "";
       scope.property = property;
+      scope.model[scope.fieldName] = (property.default)? property.default:null;
 
       $http.get(templateUrl).success(function(data) {
         element.html(data);
