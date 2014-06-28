@@ -1,6 +1,8 @@
 {
   "name": "crud-kit",
   "version": "0.0.1",
+  "main": "dist/scripts/scripts.5c0c9c9e.js",
+  "ignore": ["app","test",".bowerrc",".editorconfig",".gitattributes",".gitignore",".jshintrc",".travis.yml","Gruntfile.js","package.json"],
   "dependencies": {
     "angular": "1.2.16",
     "json3": "~3.3.1",

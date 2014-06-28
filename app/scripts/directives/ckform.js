@@ -53,7 +53,7 @@ angular.module('crudKit')
   .directive('ckForm', function () {
     return {
       //template: '<div></div>',
-      templateUrl: 'views/directive_templates/ckform/form.html',
+      templateUrl: 'views/ckform_form.html',
       controller: 'ckFormCtrl',
       scope: {
         title:'=',
