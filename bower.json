@@ -2,7 +2,18 @@
   "name": "crud-kit",
   "version": "0.0.1",
   "main": "dist/scripts/scripts.5c0c9c9e.js",
-  "ignore": ["app","test",".bowerrc",".editorconfig",".gitattributes",".gitignore",".jshintrc",".travis.yml","Gruntfile.js","package.json"],
+  "ignore": [
+    "app",
+    "test",
+    ".bowerrc",
+    ".editorconfig",
+    ".gitattributes",
+    ".gitignore",
+    ".jshintrc",
+    ".travis.yml",
+    "Gruntfile.js",
+    "package.json"
+  ],
   "dependencies": {
     "angular": "1.2.16",
     "json3": "~3.3.1",
@@ -16,7 +27,8 @@
     "angular-route": "1.2.16",
     "angular-ui-bootstrap-bower": "~0.10.0",
     "tv4": "~1.0.17",
-    "angular-ui-ace": "bower"
+    "angular-ui-ace": "bower",
+    "restangular": "~1.4.0"
   },
   "devDependencies": {
     "angular-mocks": "1.2.16",

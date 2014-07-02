@@ -9,14 +9,13 @@
  * Main module of the application.
  */
 angular
-  .module('crudKit', [
-    'ngAnimate',
-    'ngCookies',
-    'ngResource',
-    'ngRoute',
-    'ngSanitize',
-    'ngTouch',
-    'ui.bootstrap'
-  ])
-  .config(function () {
-  });
+    .module('crudKit', [
+        'ngAnimate',
+        'ngCookies',
+        'ngResource',
+        'ngRoute',
+        'ngSanitize',
+        'ngTouch',
+        'ui.bootstrap',
+        'restangular'
+    ]);
