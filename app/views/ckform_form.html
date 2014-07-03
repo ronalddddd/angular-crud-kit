@@ -2,14 +2,17 @@
     <h2>{{ title || schema.title }} <small>{{ description || schema.description}}</small></h2>
 </legend>
 
-<form name="{{name}}" class="well clearfix">
-    <!--<div ng-repeat="field in form.form_fields">-->
-    <div ng-repeat="(fieldName,property) in schema.properties">
-        <ck-field field-name="fieldName" json-schema="schema" model="model"></ck-field>
-    </div>
+<button ng-click="debugForm()">DEBUG</button>
 
-    <small class="col-md-3 pull-right text-right">{{ schema.title }} [{{model.id || "new"}}]</small>
-</form>
+<div class="well clearfix">
+    <ng-form name="{{name}}">
+        <div class="form-fields" ng-repeat="(fieldName,property) in schema.properties">
+
+        </div>
+
+        <small class="col-md-3 pull-right text-right">{{ schema.title }} [{{model.id || "new"}}]</small>
+    </ng-form>
+</div>
 
 <div class="form-actions clearfix">
     <div class="btn-group pull-left" ng-show="model.id && canDelete">

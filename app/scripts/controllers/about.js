@@ -8,55 +8,9 @@
  * Controller of the crudKit
  */
 angular.module('crudKit')
-    .controller('AboutCtrl', function ($scope, JSONValidator, $rootScope, $filter, JsonApi) {
+    .controller('AboutCtrl', function ($scope, $rootScope, $filter, JsonApi, JSONValidator, crudKitConfig) {
         $scope.api = JsonApi;
-        $scope.widgetSchema = {
-            "$schema":  "http://json-schema.org/draft-04/schema",
-            "title":    "ACME Widget",
-            "type":     "object",
-            "properties": {
-                "title": {
-                    "title":"Title",
-                    "description":"Something to describe this Widget",
-                    "type":["string", "null"]
-                },
-
-                "email": {
-                    "title":"Email",
-                    "type":["string", "null"],
-                    "format":"email"
-                },
-
-                "someInt":{
-                    "title":"Some Integer",
-                    "type": ['integer', 'null'],
-                    "default": 150
-                },
-
-                "useful": {
-                    "title":"Useful",
-                    "type":"boolean",
-                    "default": false
-                },
-
-                "context_id": {
-                    "title":"Context",
-                    "enum":['tc','sc']
-                },
-
-                "created": {
-                    "title":"Date Created",
-                    "format":"date-time"
-                },
-
-                "summary": {
-                    "title":"Summary",
-                    "type":"string",
-                    "format":"textarea"
-                }
-            },
-            "required": ["title", "summary","context_id"]
-        };
+        $scope.widgetSchema = crudKitConfig.schemas.Widget;
 
         $scope.widgetInstance = {};
 

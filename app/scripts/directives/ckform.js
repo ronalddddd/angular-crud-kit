@@ -7,10 +7,11 @@
  * # ckForm
  */
 angular.module('crudKit')
-  .controller('ckFormCtrl', function($scope, JSONValidator){
+  .controller('ckFormCtrl', ['$scope', '$element','JSONValidator', 'JsonApi', function($scope, $element, JSONValidator, JsonApi){
     /** controller defs */
     $scope.master = angular.copy($scope.model);
     $scope.validationResult = null;
+    $scope.fieldElements = [];
 
     $scope.reset = function(){
       $scope.model = $scope.master;
@@ -48,9 +49,19 @@ angular.module('crudKit')
       throw new Error("Not implemented"); // TODO
     };
 
+    this.getScope = function(){
+      return $scope;
+    };
+
+    $scope.debugForm = function(){
+      console.log("form $scope.delete:",$scope.delete);
+      console.log("form $scope.name:",$scope.name);
+      console.log("form $scope[$scope.name]:",$scope[$scope.name]);
+    };
+
     /** controller init */
-  })
-  .directive('ckForm', function () {
+  }])
+  .directive('ckForm', function ($compile) {
     return {
       //template: '<div></div>',
       templateUrl: 'views/ckform_form.html',
@@ -59,7 +70,7 @@ angular.module('crudKit')
         title:'=',
         description:'=',
 
-        name:'=',
+        name:"@",
         schema:'=',
         model:'=',
 
@@ -74,9 +85,22 @@ angular.module('crudKit')
         debug:'='
       },
       restrict: 'E',
-      link: function postLink(scope, element, attrs) {
-        console.log("FormControl: ",scope[scope.name]);
+      compile: function compile(tElement, tAttrs, transclude) {
 
+        return {
+          pre: function(scope, element){
+
+          },
+          post: function(scope, element, attrs, controllerInstance) {
+            console.log("FormControl: ",scope[scope.name]);
+
+            tElement.children().each(function(el){
+              console.log(angular.element(element).find('.form-fields').append(el));
+            });
+
+            $compile(element.contents())(scope);
+          }
+        }
       }
-    };
+    }
   });

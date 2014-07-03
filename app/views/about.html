@@ -16,25 +16,12 @@
     <tab heading="ckField">
         <h2>Examples</h2>
         <legend></legend>
-        <code>&lt;ck-field field-name=&quot;'title'&quot; json-schema=&quot;widgetSchema&quot; model=&quot;widgetInstance&quot;&gt;&lt;/ck-field&gt;</code>
-        <ck-field field-name="'title'" json-schema="widgetSchema" model="widgetInstance"></ck-field>
-        <hr>
 
-        <code>&lt;ck-field field-name=&quot;'useful'&quot; json-schema=&quot;widgetSchema&quot; model=&quot;widgetInstance&quot;&gt;&lt;/ck-field&gt;</code>
-        <ck-field field-name="'useful'" json-schema="widgetSchema" model="widgetInstance"></ck-field>
-        <hr>
-
-        <code>&lt;ck-field field-name=&quot;'created'&quot; json-schema=&quot;widgetSchema&quot; model=&quot;widgetInstance&quot;&gt;&lt;/ck-field&gt;</code>
-        <ck-field field-name="'created'" json-schema="widgetSchema" model="widgetInstance"></ck-field>
-        <hr>
-
-        <h2>Resulting Model Data <span class="btn btn-xs" ng-class="{'btn-danger':!widgetIsValid, 'btn-success':widgetIsValid}">{{(widgetIsValid)? "Valid":"Invalid"}}</span></h2>
-        <pre>{{widgetInstance | json}}</pre>
-        <hr>
     </tab>
 
     <tab heading="ckForm">
-        <ck-form name="widgetForm" schema="widgetSchema" model="widgetInstance" on-save="saveWidget($model, $next)" debug="true"></ck-form>
+        <ck-form name="widgetForm" schema="widgetSchema" model="widgetInstance" on-save="saveWidget($model, $next)" debug="true">
+        </ck-form>
     </tab>
 
     <tab heading="API Service">

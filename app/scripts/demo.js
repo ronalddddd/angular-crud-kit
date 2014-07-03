@@ -37,6 +37,7 @@ angular
         crudKitConfigProvider.addSchema('Widget', {
                 "$schema":  "http://json-schema.org/draft-04/schema",
                 "title":    "ACME Widget",
+                "description": "Some description of the widget.",
                 "type":     "object",
                 "properties": {
                     "title": {
@@ -65,7 +66,7 @@ angular
 
                     "context_id": {
                         "title":"Context",
-                        "enum":['tc','sc']
+                        "enum":['Chinese','English']
                     },
 
                     "created": {

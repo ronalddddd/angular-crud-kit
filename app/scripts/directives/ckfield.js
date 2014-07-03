@@ -102,12 +102,19 @@ angular.module('crudKit')
 
     }];
 
-    var linker = function(scope, element) {
+    var linker = function(scope, element, attr, formController) {
+      //console.debug(formController.getScope().schema.properties);
+      scope.jsonSchema = formController.getScope().schema;
+      scope.model = formController.getScope().model;
+
+      //console.debug(scope.fieldName);
+
       var property = scope.jsonSchema.properties[scope.fieldName],
           templateUrl = getTemplateUrl((property.enum)? "enum" : property.format || property.type);
 
       scope.title = property.title || "";
       scope.property = property;
+      // Default field value
       scope.model[scope.fieldName] = (property.default)? property.default:null;
 
       $http.get(templateUrl).success(function(data) {
@@ -118,12 +125,13 @@ angular.module('crudKit')
 
     return {
 //        template: '<div>{{field}}</div>',
+      require: '^ckForm',
       controller: controller,
       restrict: 'E',
       scope: {
-        jsonSchema:'=',
-        fieldName:'=',
-        model:'='
+        fieldName:'='
+//        jsonSchema:'=',
+//        model:'='
       },
       link: linker
     };
