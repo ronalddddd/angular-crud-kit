@@ -7,24 +7,26 @@
  * # ckForm
  */
 angular.module('crudKit')
-  .controller('ckFormCtrl', ['$scope', '$element','JSONValidator', 'JsonApi', function($scope, $element, JSONValidator, JsonApi){
+  .controller('ckFormCtrl', ['$rootScope','$scope', '$element','JSONValidator', 'JsonApi', function($rootScope,$scope, $element, JSONValidator, JsonApi){
     /** controller defs */
     $scope.master = angular.copy($scope.model);
     $scope.validationResult = null;
-    $scope.fieldElements = [];
+//    $scope.fieldElements = [];
 
     $scope.reset = function(){
       $scope.model = $scope.master;
     };
 
     $scope.validate = function(){
+      console.debug('Validating model..');
       $scope.validationResult = JSONValidator.validate($scope.model, $scope.schema);
+      console.debug('Validation Result', $scope.validationResult,toString());
       return $scope.validationResult;
     };
 
     $scope.save = function(){
       console.debug("ckForm: save()");
-      $scope.$broadcast('validationReset', $scope.schema);
+      $rootScope.$broadcast('validationReset', $scope.schema);
 
       if ($scope.validate().valid){
         console.debug("ckForm: calling onSave");
@@ -53,19 +55,33 @@ angular.module('crudKit')
       return $scope;
     };
 
+    this.updateModelField = function(key, val){
+      $scope.model[key] = val;
+    };
+
+//    this.registerFieldElement = function(el){
+//      $scope.fieldElements.push(el);
+//    };
+
     $scope.debugForm = function(){
       console.log("form $scope.delete:",$scope.delete);
       console.log("form $scope.name:",$scope.name);
       console.log("form $scope[$scope.name]:",$scope[$scope.name]);
     };
 
+//    $scope.$watch('model',function(val){
+//      console.debug("ckForm `%s`: Model prop changed: ",$scope.name, val);
+//    },true);
+
     /** controller init */
   }])
-  .directive('ckForm', function ($compile) {
+  .directive('ckForm', function () {
     return {
       //template: '<div></div>',
       templateUrl: 'views/ckform_form.html',
       controller: 'ckFormCtrl',
+      replace: true,
+      transclude: 'element',
       scope: {
         title:'=',
         description:'=',
@@ -92,13 +108,8 @@ angular.module('crudKit')
 
           },
           post: function(scope, element, attrs, controllerInstance) {
-            console.log("FormControl: ",scope[scope.name]);
-
-            tElement.children().each(function(el){
-              console.log(angular.element(element).find('.form-fields').append(el));
-            });
-
-            $compile(element.contents())(scope);
+            console.info("FormControl: ",scope.name);
+            console.debug(element.contents());
           }
         }
       }

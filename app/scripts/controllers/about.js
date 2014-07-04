@@ -12,7 +12,9 @@ angular.module('crudKit')
         $scope.api = JsonApi;
         $scope.widgetSchema = crudKitConfig.schemas.Widget;
 
-        $scope.widgetInstance = {};
+        $scope.widgetInstance = {
+          title: "TEST TITLE"
+        };
 
         $scope.widgetSchemaStr = $filter('json')($scope.widgetSchema);
         $scope.widgetInstanceStr= $filter('json')($scope.widgetInstance);
@@ -26,22 +28,22 @@ angular.module('crudKit')
 
         $scope.updateSchema = function(jsonStr){
             $scope.widgetSchema = angular.fromJson(jsonStr);
-            console.log($scope.widgetSchema);
+            //console.log($scope.widgetSchema);
         };
 
         $scope.$watch("widgetSchemaStr",function(val){
             $scope.widgetSchema = angular.fromJson(val);
-            console.debug($scope.widgetSchema);
+            //console.debug($scope.widgetSchema);
         }, true);
 
         $scope.$watch("widgetInstanceStr",function(val){
             $scope.widgetInstance = angular.fromJson(val);
-            console.debug($scope.widgetInstance);
+            //console.debug($scope.widgetInstance);
         }, true);
 
         $scope.$watch("widgetInstance",function(val){
             $scope.widgetInstanceStr = $filter('json')(val);
-            console.debug($scope.widgetInstanceStr);
+            //console.debug($scope.widgetInstanceStr);
         }, true);
 
         $scope.$watch("widgetInstance",function(val){
@@ -62,7 +64,7 @@ angular.module('crudKit')
         });
 
         $scope.saveWidget =function(model, next){
-            //console.debug(model);
+            console.debug(model);
             next(null, model);
         };
 

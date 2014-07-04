@@ -80,6 +80,7 @@ angular.module('crudKit')
       }
 
       $scope.$on('validationReset', function(event, schema){
+        //console.debug("ckField received validationReset event.");
         if($scope.jsonSchema === schema){
           console.info("validationReset on field `%s`",$scope.fieldName);
           $scope.err = null;
@@ -100,17 +101,30 @@ angular.module('crudKit')
         }
       });
 
+      $scope.$watch('model',function(val){
+        //console.debug("Field val changed.",$scope.model[$scope.fieldName]);
+        $scope.formController.updateModelField($scope.fieldName, $scope.model[$scope.fieldName]);
+      },true);
+
+      $scope.$watch('formController.getScope().model',function(val){
+        //console.debug(val);
+        $scope.model = val;
+      },true);
     }];
 
     var linker = function(scope, element, attr, formController) {
       //console.debug(formController.getScope().schema.properties);
+      scope.formController = formController;
       scope.jsonSchema = formController.getScope().schema;
       scope.model = formController.getScope().model;
 
-      //console.debug(scope.fieldName);
+      console.debug("Creating Field: ", scope.fieldName);
+//      console.debug("model: ", scope.model);
+      console.debug("custom field template url: ", scope.fieldTemplateUrl);
 
       var property = scope.jsonSchema.properties[scope.fieldName],
-          templateUrl = getTemplateUrl((property.enum)? "enum" : property.format || property.type);
+          // templateUrl is defined by one of these: 1. custom URL; 2. json schema's property.enum.format 3. property.type
+          templateUrl = scope.fieldTemplateUrl || ( getTemplateUrl((property.enum)? "enum" : property.format || property.type) );
 
       scope.title = property.title || "";
       scope.property = property;
@@ -129,10 +143,17 @@ angular.module('crudKit')
       controller: controller,
       restrict: 'E',
       scope: {
-        fieldName:'='
+        fieldName:'@',
+        fieldTemplateUrl: '@'
 //        jsonSchema:'=',
 //        model:'='
       },
-      link: linker
+      compile: function(tElement, tAttr){
+
+        return {
+          post: linker
+        }
+      }
+      //,link: linker
     };
   }]);
