@@ -31,29 +31,6 @@ angular.module('crudKit.demo')
             //console.log($scope.widgetSchema);
         };
 
-        $scope.$watch("widgetSchemaStr",function(val){
-            $scope.widgetSchema = angular.fromJson(val);
-            //console.debug($scope.widgetSchema);
-        }, true);
-
-        $scope.$watch("widgetInstanceStr",function(val){
-            $scope.widgetInstance = angular.fromJson(val);
-            //console.debug($scope.widgetInstance);
-        }, true);
-
-        $scope.$watch("widgetInstance",function(val){
-            $scope.widgetInstanceStr = $filter('json')(val);
-            //console.debug($scope.widgetInstanceStr);
-        }, true);
-
-        $scope.$watch("widgetInstance",function(val){
-//            $scope.validationResult = JSONValidator.validate($scope.widgetInstance, $scope.widgetSchema);
-//            $scope.widgetIsValid = $scope.validationResult.valid;
-        },true);
-
-        /** Example ckFields */
-        $scope.exampleFields = '';
-
         $scope.clearErrors = function(){
             console.log("Clearing Errors...");
             $rootScope.$broadcast('validationReset', $scope.widgetSchema);

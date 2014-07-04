@@ -17,8 +17,7 @@ angular
         'ngSanitize',
         'ngTouch',
         'ui.bootstrap',
-        'crudKit',
-        'ui.ace'
+        'crudKit'
     ])
     .config(['$routeProvider', 'crudKitConfigProvider', function ($routeProvider, crudKitConfigProvider) {
         $routeProvider
@@ -55,11 +54,12 @@ angular
                     "someInt":{
                         "title":"Some Integer",
                         "type": ['integer', 'null'],
-                        "default": 150
+                        "default": 150,
+                        "format": 'integer'
                     },
 
-                    "useful": {
-                        "title":"Useful",
+                    "someBool": {
+                        "title":"Some Boolean",
                         "type":"boolean",
                         "default": false
                     },

@@ -27,7 +27,6 @@
     "angular-route": "1.2.16",
     "angular-ui-bootstrap-bower": "~0.10.0",
     "tv4": "~1.0.17",
-    "angular-ui-ace": "bower",
     "restangular": "~1.4.0"
   },
   "devDependencies": {

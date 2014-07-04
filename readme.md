@@ -108,6 +108,10 @@ Quick Start
 - Interacting with RESTful resources:
       coming soon.
 
+Demo
+==========
+After installing with bower, browse to `bower_components/crud-kit/dist/index.html`
+
 TO DOs
 ==========
 - Simple CRUD methods for JsonApi service.
