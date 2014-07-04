@@ -8,7 +8,7 @@ Quick Start
 
 - Install via bower:
 
-        bower install angular-crud-kit
+        bower install crud-kit
 
 
 - Include the scripts:
