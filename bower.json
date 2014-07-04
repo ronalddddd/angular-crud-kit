@@ -1,7 +1,13 @@
 {
   "name": "crud-kit",
   "version": "0.0.1",
-  "main": "dist/scripts/scripts.5c0c9c9e.js",
+  "authors": [
+    "Ronald Ng"
+  ],
+  "description": "AngularJS module to structure your view-models with JSON schemas, build forms, and interact with RESTful API services",
+  "license": "MIT",
+  "homepage": "https://github.com/ronalddddd/angular-crud-kit.git",
+  "main": "dist/scripts/crudKit.js",
   "ignore": [
     "app",
     "test",

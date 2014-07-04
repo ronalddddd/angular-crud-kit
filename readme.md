@@ -7,20 +7,23 @@ Quick Start
 ================
 
 - Install via bower:
-      bower install angular-crud-kit
+
+        bower install angular-crud-kit
 
 
 - Include the scripts:
-      <script src="bower_components/angular-crud-kit/dist/scripts/crudKit.js"></script>
+
+        <script src="bower_components/angular-crud-kit/dist/scripts/crudKit.js"></script>
 
 
 - Add to crudKit your angular module's dependencies:
 
-      var myApp = angular.module('crudKit.demo', ['crudKit']);
+        var myApp = angular.module('crudKit.demo', ['crudKit']);
 
 
 - Add a JSON Schema (for every model you want to define)
-      myApp.config(['crudKitConfigProvider', function (crudKitConfigProvider) {
+
+        myApp.config(['crudKitConfigProvider', function (crudKitConfigProvider) {
               crudKitConfigProvider.addSchema('Widget', {
                 "$schema":  "http://json-schema.org/draft-04/schema",
                 "title":    "ACME Widget",
@@ -73,6 +76,7 @@ Quick Start
 
 
 - Start building forms:
+
         <!--controller example -->
         <script>
             angular.module('crudKit.demo')
@@ -106,7 +110,8 @@ Quick Start
 
 
 - Interacting with RESTful resources:
-      coming soon.
+
+        coming soon.
 
 Demo
 ==========
