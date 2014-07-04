@@ -8,12 +8,12 @@ Quick Start
 
 - Install via bower:
 
-        bower install angular-crud-kit
+        bower install crud-kit
 
 
 - Include the scripts:
 
-        <script src="bower_components/angular-crud-kit/dist/scripts/crudKit.js"></script>
+        <script src="bower_components/crud-kit/dist/scripts/crudKit.js"></script>
 
 
 - Add to crudKit your angular module's dependencies:
