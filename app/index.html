@@ -61,6 +61,8 @@
 
     <!-- build:js(./) scripts/vendor.js -->
     <script src="bower_components/ace-builds/src-noconflict/ace.js"></script>
+    <script src="bower_components/ace-builds/src-noconflict/mode-html.js"></script>
+    <script src="bower_components/ace-builds/src-noconflict/worker-html.js"></script>
     <script src="bower_components/ace-builds/src-noconflict/mode-json.js"></script>
     <script src="bower_components/ace-builds/src-noconflict/worker-json.js"></script>
     <script src="bower_components/ace-builds/src-noconflict/mode-javascript.js"></script>
@@ -84,16 +86,18 @@
     <!-- endbower -->
     <!-- endbuild -->
 
-        <!-- build:js({.tmp,app}) scripts/scripts.js -->
+        <!-- build:js({.tmp,app}) scripts/crudKit.js -->
         <script src="scripts/app.js"></script>
-        <script src="scripts/controllers/main.js"></script>
-        <script src="scripts/controllers/about.js"></script>
+        <script src="scripts/demo.js"></script>
+
         <script src="scripts/directives/ckfield.js"></script>
         <script src="scripts/services/jsonvalidator.js"></script>
         <script src="scripts/directives/ckform.js"></script>
-        <script src="scripts/demo.js"></script>
         <script src="scripts/services/crudkitconfig.js"></script>
         <script src="scripts/services/jsonapi.js"></script>
-        <!-- endbuild -->
+
+        <script src="scripts/controllers/main.js"></script>
+        <script src="scripts/controllers/about.js"></script>
+    <!-- endbuild -->
 </body>
 </html>

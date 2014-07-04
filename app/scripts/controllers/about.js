@@ -7,7 +7,7 @@
  * # AboutCtrl
  * Controller of the crudKit
  */
-angular.module('crudKit')
+angular.module('crudKit.demo')
     .controller('AboutCtrl', function ($scope, $rootScope, $filter, JsonApi, JSONValidator, crudKitConfig) {
         $scope.api = JsonApi;
         $scope.widgetSchema = crudKitConfig.schemas.Widget;
