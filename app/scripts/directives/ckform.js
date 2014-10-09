@@ -75,10 +75,10 @@ angular.module('crudKit')
 
     /** controller init */
   }])
-  .directive('ckForm', function () {
+  .directive('ckForm', function (crudKitConfig) {
     return {
       //template: '<div></div>',
-      templateUrl: 'views/ckform_form.html',
+      templateUrl: (crudKitConfig.templatesPath || "views/") + 'ckform_form.html',
       controller: 'ckFormCtrl',
       replace: true,
       transclude: 'element',
