@@ -7,7 +7,7 @@
  * # ckField
  */
 angular.module('crudKit')
-  .directive('ckField', ['$http','$compile',function ($http, $compile) {
+  .directive('ckField', ['$http','$compile', 'crudKitConfig',function ($http, $compile, crudKitConfig) {
 
     var getTemplateUrl = function(type) {
       var templateUrl = '';
@@ -52,7 +52,7 @@ angular.module('crudKit')
           templateUrl = 'views/ckfield_textfield.html';
           break;
       }
-      return templateUrl;
+      return (crudKitConfig.templatesPath || "") + templateUrl;
     };
 
     var controller = ['$scope',function($scope){

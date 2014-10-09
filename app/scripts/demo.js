@@ -83,5 +83,8 @@ angular
                 "required": ["title", "summary","context_id"]
             }
         );
+
+        // Tell crudKit where the form and input templates are located:
+        //crudKitConfigProvider.set('templatesPath','http://localhost:1234/');
     }]);
 

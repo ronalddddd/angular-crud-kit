@@ -18,6 +18,14 @@ angular.module('crudKit')
       this.schemas[name] = schema;
     };
 
+    this.set = function(key, value){
+      if(key === 'schemas'){
+        throw new Error("The key 'schemas' is reserved.");
+      } else {
+        this[key] = value;
+      }
+    }
+
     // Method for instantiating
     this.$get = function () {
       return this;

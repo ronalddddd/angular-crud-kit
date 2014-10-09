@@ -20,7 +20,7 @@ angular.module('crudKit')
               }
               return (angular.isDate(data))? null:'Must be a Date';
             });
-            // TODO: other basic format validators like email and phone
+            // TODO: other basic format validators like email. See https://github.com/ikr/tv4-formats
 
             return {
                 validate: function(data, schema){
