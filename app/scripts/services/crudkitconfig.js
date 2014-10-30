@@ -12,10 +12,11 @@ angular.module('crudKit')
 
     // model name map of JSON Schemas
     this.schemas = {};
+    this.schemaType = 'json-schema';
 
     // Public API for configuration
-    this.addSchema = function (name, schema) {
-      this.schemas[name] = schema;
+    this.addSchema = function (modelName, modelSchema) {
+      this.schemas[modelName] = modelSchema;
     };
 
     this.set = function(key, value){

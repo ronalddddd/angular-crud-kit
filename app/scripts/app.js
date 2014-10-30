@@ -16,6 +16,5 @@ angular
         'ngRoute',
         'ngSanitize',
         'ngTouch',
-        'ui.bootstrap',
-        'restangular'
+        'ui.bootstrap'
     ]);
