@@ -115,16 +115,18 @@ angular.module('crudKit')
     var linker = function(scope, element, attr, formController) {
       //console.debug(formController.getScope().schema.properties);
       scope.formController = formController;
-      scope.jsonSchema = formController.getScope().schema;
+      scope.jsonSchema = formController.getScope().schema || null;
       scope.model = formController.getScope().model;
 
       console.debug("Creating Field: ", scope.fieldName);
 //      console.debug("model: ", scope.model);
       console.debug("custom field template url: ", scope.fieldTemplateUrl);
 
-      var property = scope.jsonSchema.properties[scope.fieldName],
-          // templateUrl is defined by one of these: 1. custom URL; 2. json schema's property.enum.format 3. property.type
-          templateUrl = scope.fieldTemplateUrl || ( getTemplateUrl((property.enum)? "enum" : property.format || property.type) );
+      var
+        property = (scope.jsonSchema)? scope.jsonSchema.properties[scope.fieldName] : {},
+        templateType = scope.template || (property.enum)? "enum" : property.format || property.type || "default",
+        // templateUrl is defined by one of these: 1. custom URL; 2. json schema's property.enum.format 3. property.type
+        templateUrl = scope.fieldTemplateUrl || getTemplateUrl( templateType );
 
       scope.title = property.title || "";
       scope.property = property;

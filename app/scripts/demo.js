@@ -33,7 +33,7 @@ angular
                 redirectTo: '/'
             });
 
-        crudKitConfigProvider.addSchema('Widget', {
+        crudKitConfigProvider.addModelSchema('Widget', {
                 "$schema":  "http://json-schema.org/draft-04/schema",
                 "title":    "ACME Widget",
                 "description": "Some description of the widget.",
