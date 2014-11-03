@@ -10,6 +10,7 @@ angular.module('crudKit')
   .directive('ckField', ['$http','$compile', 'crudKitConfig',function ($http, $compile, crudKitConfig) {
 
     var getTemplateUrl = function(type) {
+      console.log(type);
       var templateUrl = '';
 
       switch(type) {
@@ -89,7 +90,7 @@ angular.module('crudKit')
 
       $scope.$on('validationError',function(event, err){
         var schemaPath = err.schemaPath.split("/").splice(1),
-            propertyName = err.dataPath.split("/").splice(1).pop();
+          propertyName = err.dataPath.split("/").splice(1).pop();
 
         if (!propertyName && schemaPath.length > 1  && schemaPath[0] === "required"){
           propertyName =  $scope.jsonSchema.required[schemaPath[1]];
@@ -117,23 +118,23 @@ angular.module('crudKit')
       scope.formController = formController;
       scope.jsonSchema = formController.getScope().schema || null;
       scope.model = formController.getScope().model;
-
-      console.debug("Creating Field: ", scope.fieldName);
-//      console.debug("model: ", scope.model);
-      console.debug("custom field template url: ", scope.fieldTemplateUrl);
+      scope.options = scope.options || {};
 
       var
-        property = (scope.jsonSchema)? scope.jsonSchema.properties[scope.fieldName] : {},
-        templateType = scope.template || (property.enum)? "enum" : property.format || property.type || "default",
-        // templateUrl is defined by one of these: 1. custom URL; 2. json schema's property.enum.format 3. property.type
-        templateUrl = scope.fieldTemplateUrl || getTemplateUrl( templateType );
+        property = (scope.jsonSchema && scope.jsonSchema.properties)? scope.jsonSchema.properties[scope.fieldName] : {},
+        options = {
+          label: scope.options.label || scope.fieldName,
+          placeholder: scope.options.placeholder || "",
+          // templateUrl is defined by one of these: 1. custom URL; 2. json schema's property.enum.format 3. property.type
+          template: scope.options.template || ( (property.enum)? "enum" : property.format || property.type || "default" )
+        };
 
-      scope.title = property.title || "";
+      scope.title = options.label;
       scope.property = property;
       // Default field value
       scope.model[scope.fieldName] = (property.default)? property.default:null;
 
-      $http.get(templateUrl).success(function(data) {
+      $http.get(getTemplateUrl(options.template)).success(function(data) {
         element.html(data);
         $compile(element.contents())(scope);
       });
@@ -146,7 +147,9 @@ angular.module('crudKit')
       restrict: 'E',
       scope: {
         fieldName:'@',
-        fieldTemplateUrl: '@'
+        fieldTemplateUrl: '@',
+        template: '@',
+        options: '=?'
 //        jsonSchema:'=',
 //        model:'='
       },
