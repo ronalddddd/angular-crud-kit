@@ -1,23 +1,32 @@
-<div class="jumbotron">
-  <h1>'Allo, 'Allo!</h1>
-  <p class="lead">
-    <img src="images/yeoman.png" alt="I'm Yeoman"><br>
-    Always a pleasure scaffolding your apps.
-  </p>
-  <p><a class="btn btn-lg btn-success" ng-href="#">Splendid!<span class="glyphicon glyphicon-ok"></span></a></p>
+<div class="text-center jumbotron">
+    <br/>
+    <i class="fa fa-wrench fa-2x"></i>&nbsp;
+    <i class="fa fa-briefcase fa-2x"></i>&nbsp;
+    <i class="fa fa-gears fa-2x"></i>
+    <br/>
+    <h1>CRUD Kit</h1>
+    <p class="lead">CRUD Kit helps you structure and manage your models, forms, fields, validations and api calls. All the boring stuff.</p>
 </div>
 
 <div class="row marketing">
-  <h4>HTML5 Boilerplate</h4>
-  <p>
-    HTML5 Boilerplate is a professional front-end template for building fast, robust, and adaptable web apps or sites.
-  </p>
+    <h4>Define your models using JSON Schemas</h4>
+    <p>
+        Define your view models using JSON schemas.
+        This can be done via <code>angular.module.config()</code> and <code>crudKitConfigProvider.addSchema()</code>.
+        See app/scripts/demo.js for an example.
+    </p>
 
-  <h4>Angular</h4>
-  <p>
-    AngularJS is a toolset for building the framework most suited to your application development.
-  </p>
+    <h4>Build forms using these definitions</h4>
+    <p>
+        Customizable form builder with validation and ui-bootstrap integration.
+    </p>
+    <p>
+        Using the ckForm and ckField directives, you can quickly build forms that automatically adds validation and chooses the correct input template.
+        Just specify the schema name, model instance, and onSave/Delete actions. See app/views/about.html for an example.
+    </p>
 
-  <h4>Karma</h4>
-  <p>Spectacular Test Runner for JavaScript.</p>
+    <h4>CRUD your models via a RESTful API Service</h4>
+    <p>
+        Coming soon.
+    </p>
 </div>

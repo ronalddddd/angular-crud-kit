@@ -1,0 +1,11 @@
+<tabset> <tab heading="Schema"> <h2>Schema</h2> <code>$scope.widgetSchema</code> (get from <code>crudKitConfig.schemas.Widget</code>) <pre>{{widgetSchema | json}}</pre> <h2>Data</h2> <code>$scope.widgetInstance</code> <pre>{{widgetInstance | json}}</pre> </tab> <tab heading="ckForm and ckField"> <!--ckForm Directive Example--> <ck-form name="widgetForm" schema="widgetSchema" model="widgetInstance" on-save="saveWidget($model, $next)" debug="true"> <div class="col-sm-6"> <ck-field field-name="title"></ck-field> <ck-field field-name="someInt"></ck-field> <ck-field field-name="email"></ck-field> <ck-field field-name="summary"></ck-field> </div> <div class="col-sm-6"> <ck-field field-name="created"></ck-field> <ck-field field-name="context_id"></ck-field> <ck-field field-name="someBool"></ck-field> </div> </ck-form> <h2>ckForm Directive Example Source</h2> <pre>
+&lt;ck-form name=&quot;widgetForm&quot; schema=&quot;widgetSchema&quot; model=&quot;widgetInstance&quot; on-save=&quot;saveWidget($model, $next)&quot; debug=&quot;true&quot;&gt;
+    &lt;div class=&quot;col-sm-6&quot;&gt;
+        &lt;ck-field field-name=&quot;title&quot;&gt;&lt;/ck-field&gt;
+        &lt;ck-field field-name=&quot;summary&quot;&gt;&lt;/ck-field&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;col-sm-6&quot;&gt;
+        &lt;ck-field field-name=&quot;created&quot;&gt;&lt;/ck-field&gt;
+        &lt;ck-field field-name=&quot;context_id&quot;&gt;&lt;/ck-field&gt;
+    &lt;/div&gt;
+&lt;/ck-form&gt;</pre> </tab> <tab heading="JSONValidator"> <h2>Validation result <button type="buttond" class="btn btn-sm" ng-click="validate()">Validate</button> &nbsp; <button type="buttond" class="btn btn-sm" ng-click="clearErrors()">Clear Errors</button></h2> <small><code>JSONValidator.validate($scope.widgetInstance, $scope.widgetSchema)</code></small> <pre><span class="btn btn-xs pull-right" ng-class="{'btn-danger':!widgetIsValid, 'btn-success':widgetIsValid}">{{(widgetIsValid)? "Valid":"Invalid"}}</span> {{validationResult | json}}</pre> </tab> <tab heading="API Service"> <p class="lead text-center"><br><br><i class="fa fa-wrench fa-5x"></i><br>coming soon...</p> <!--<button ng-click="api.test()">JsonApi.test()</button>--> </tab> </tabset>

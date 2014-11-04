@@ -1,7 +1,7 @@
 'use strict';
 
-describe('Directive: ckField', function () {
-//
+describe('Directive: ckForm', function () {
+
 //  // load the directive's module
 //  beforeEach(module('crudKit'));
 //
@@ -13,8 +13,8 @@ describe('Directive: ckField', function () {
 //  }));
 //
 //  it('should make hidden element visible', inject(function ($compile) {
-//    element = angular.element('<ck-field></ck-field>');
+//    element = angular.element('<ck-form></ck-form>');
 //    element = $compile(element)(scope);
-//    expect(element.text()).toBe('this is the ckField directive');
+//    expect(element.text()).toBe('this is the ckForm directive');
 //  }));
 });

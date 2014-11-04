@@ -7,11 +7,7 @@
  * # MainCtrl
  * Controller of the crudKit
  */
-angular.module('crudKit')
+angular.module('crudKit.demo')
   .controller('MainCtrl', function ($scope) {
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+
   });

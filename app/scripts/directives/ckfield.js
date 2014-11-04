@@ -7,59 +7,60 @@
  * # ckField
  */
 angular.module('crudKit')
-  .directive('ckField', function ($http, $compile) {
+  .directive('ckField', ['$http','$compile', 'crudKitConfig',function ($http, $compile, crudKitConfig) {
 
-    var getTemplateUrl = function(schemaProperty) {
-      var type = schemaProperty.type;
+    var getTemplateUrl = function(type) {
       var templateUrl = '';
 
       switch(type) {
 //        case 'TYPEAHEAD':
-//          templateUrl = 'views/directive-templates/ckfield/typeahead.html';
+//          templateUrl = 'views/ckfield_typeahead.html';
 //          break;
-        case 'EMAIL':
-          templateUrl = 'views/directive-templates/ckfield/email.html';
+        case 'email':
+          templateUrl = 'views/ckfield_email.html';
           break;
-        case 'PHONE':
-          templateUrl = 'views/directive-templates/ckfield/phone.html';
+        case 'phone':
+          templateUrl = 'views/ckfield_phone.html';
           break;
-        case 'TEXTAREA':
-          templateUrl = 'views/directive-templates/ckfield/textarea.html';
+        case 'textarea':
+          templateUrl = 'views/ckfield_textarea.html';
           break;
-        case 'BOOLEAN':
-        case 'TINYINT':
-          templateUrl = 'views/directive-templates/ckfield/checkbox.html';
+        case 'boolean':
+          templateUrl = 'views/ckfield_checkbox.html';
           break;
-        case 'DATETIME':
-          templateUrl = 'views/directive-templates/ckfield/date.html';
+        case 'date-time':
+          templateUrl = 'views/ckfield_date.html';
           break;
-        case 'ENUM':
-          templateUrl = 'views/directive-templates/ckfield/dropdown.html';
+        case 'enum':
+          templateUrl = 'views/ckfield_dropdown.html';
           break;
         case 'hidden':
-          templateUrl = 'views/directive-templates/ckfield/hidden.html';
+          templateUrl = 'views/ckfield_hidden.html';
           break;
-        case 'PASSWORD':
-          templateUrl = 'views/directive-templates/ckfield/password.html';
+        case 'password':
+          templateUrl = 'views/ckfield_password.html';
           break;
         case 'radio':
-          templateUrl = 'views/directive-templates/ckfield/radio.html';
+          templateUrl = 'views/ckfield_radio.html';
+          break;
+        case 'integer':
+          templateUrl = 'views/ckfield_number.html';
           break;
 //        case 'TEXT':
 //        case 'VARCHAR':
         default:
-          templateUrl = 'views/directive-templates/ckfield/textfield.html';
+          templateUrl = 'views/ckfield_textfield.html';
           break;
       }
-      return templateUrl;
+      return (crudKitConfig.templatesPath || "") + templateUrl;
     };
 
-    var controller = function($scope){
+    var controller = ['$scope',function($scope){
 //      $scope.api = api;
       $scope.err = null;
 
       /** Type-specific methods */
-      switch($scope.field.field_type){
+      switch($scope.type){
 //        case 'TYPEAHEAD':
 //          $scope.typeaheadSelect = function(item){
 //            $scope.selectedItem = item;
@@ -78,11 +79,58 @@ angular.module('crudKit')
           break;
       }
 
-    };
+      $scope.$on('validationReset', function(event, schema){
+        //console.debug("ckField received validationReset event.");
+        if($scope.jsonSchema === schema){
+          console.info("validationReset on field `%s`",$scope.fieldName);
+          $scope.err = null;
+        }
+      });
 
-    var linker = function(scope, element) {
-      // GET template content from path
-      var templateUrl = getTemplateUrl(scope.field, scope.viewModel);
+      $scope.$on('validationError',function(event, err){
+        var schemaPath = err.schemaPath.split("/").splice(1),
+            propertyName = err.dataPath.split("/").splice(1).pop();
+
+        if (!propertyName && schemaPath.length > 1  && schemaPath[0] === "required"){
+          propertyName =  $scope.jsonSchema.required[schemaPath[1]];
+        }
+
+        if(propertyName === $scope.fieldName){
+          console.info(err);
+          $scope.err = err;
+        }
+      });
+
+      $scope.$watch('model',function(val){
+        //console.debug("Field val changed.",$scope.model[$scope.fieldName]);
+        $scope.formController.updateModelField($scope.fieldName, $scope.model[$scope.fieldName]);
+      },true);
+
+      $scope.$watch('formController.getScope().model',function(val){
+        //console.debug(val);
+        $scope.model = val;
+      },true);
+    }];
+
+    var linker = function(scope, element, attr, formController) {
+      //console.debug(formController.getScope().schema.properties);
+      scope.formController = formController;
+      scope.jsonSchema = formController.getScope().schema;
+      scope.model = formController.getScope().model;
+
+      console.debug("Creating Field: ", scope.fieldName);
+//      console.debug("model: ", scope.model);
+      console.debug("custom field template url: ", scope.fieldTemplateUrl);
+
+      var property = scope.jsonSchema.properties[scope.fieldName],
+          // templateUrl is defined by one of these: 1. custom URL; 2. json schema's property.enum.format 3. property.type
+          templateUrl = scope.fieldTemplateUrl || ( getTemplateUrl((property.enum)? "enum" : property.format || property.type) );
+
+      scope.title = property.title || "";
+      scope.property = property;
+      // Default field value
+      scope.model[scope.fieldName] = (property.default)? property.default:null;
+
       $http.get(templateUrl).success(function(data) {
         element.html(data);
         $compile(element.contents())(scope);
@@ -91,13 +139,21 @@ angular.module('crudKit')
 
     return {
 //        template: '<div>{{field}}</div>',
+      require: '^ckForm',
       controller: controller,
       restrict: 'E',
       scope: {
-        field:'=',
-        model:'=',
-        viewModel:'='
+        fieldName:'@',
+        fieldTemplateUrl: '@'
+//        jsonSchema:'=',
+//        model:'='
       },
-      link: linker
+      compile: function(tElement, tAttr){
+
+        return {
+          post: linker
+        }
+      }
+      //,link: linker
     };
-  });
+  }]);

@@ -1,0 +1,11 @@
+<div class="row">
+    <div class="col-md-12 form-group {{(err)? 'has-error':''}}">
+        <label class="control-label">{{title || fieldName}}</label>
+        <div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-phone-alt"> </i></span>
+            <input tooltip-html-unsafe="{{err.message}}" type="text" ng-model="model[fieldName]" ng-required="field.field_required" class="form-control" placeholder="{{title || fieldName}}">
+            <!--<span class="input-group-addon">.00</span>-->
+        </div>
+    </div>
+</div>
+<!--<span class="required-error" ng-show="field.field_required && !model[fieldName]">* required</span>-->

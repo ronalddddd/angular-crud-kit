@@ -1,6 +1,25 @@
 {
   "name": "crud-kit",
-  "version": "0.0.0",
+  "version": "0.0.1",
+  "authors": [
+    "Ronald Ng"
+  ],
+  "description": "AngularJS module to structure your view-models with JSON schemas, build forms, and interact with RESTful API services",
+  "license": "MIT",
+  "homepage": "https://github.com/ronalddddd/angular-crud-kit.git",
+  "main": "dist/scripts/crudKit.js",
+  "ignore": [
+    "app",
+    "test",
+    ".bowerrc",
+    ".editorconfig",
+    ".gitattributes",
+    ".gitignore",
+    ".jshintrc",
+    ".travis.yml",
+    "Gruntfile.js",
+    "package.json"
+  ],
   "dependencies": {
     "angular": "1.2.16",
     "json3": "~3.3.1",
@@ -12,7 +31,9 @@
     "angular-animate": "1.2.16",
     "angular-touch": "1.2.16",
     "angular-route": "1.2.16",
-    "angular-ui-bootstrap-bower": "~0.10.0"
+    "angular-ui-bootstrap-bower": "~0.10.0",
+    "tv4": "~1.0.17",
+    "restangular": "~1.4.0"
   },
   "devDependencies": {
     "angular-mocks": "1.2.16",
