@@ -10,21 +10,20 @@
 angular.module('crudKit')
   .provider('crudKitConfig', function () {
 
-    // model name map of JSON Schemas
+    // model name map of Schemas
     this.schemas = {};
+//    this.schemaType = 'json-schema';
+    this.schemaType = 'swagger';
+    this.schemaUrl = '/explorer/resources';
 
     // Public API for configuration
-    this.addSchema = function (name, schema) {
-      this.schemas[name] = schema;
+    this.addModelSchema = function (modelName, modelSchema) {
+      this.schemas.models[modelName] = modelSchema;
     };
 
     this.set = function(key, value){
-      if(key === 'schemas'){
-        throw new Error("The key 'schemas' is reserved.");
-      } else {
-        this[key] = value;
-      }
-    }
+      this[key] = value;
+    };
 
     // Method for instantiating
     this.$get = function () {

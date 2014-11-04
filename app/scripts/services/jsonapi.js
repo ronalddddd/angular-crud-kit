@@ -8,17 +8,93 @@
  * Service in the crudKitApp.
  */
 angular.module('crudKit')
-    .service('JsonApi', ['crudKitConfig','Restangular', function JsonApi(config, Restangular) {
-        this.Restangular = Restangular;
-        this.schemas = config.schemas;
-        this.models = {};
+  .service('JsonApi', ['crudKitConfig','$q', '$rootScope', '$timeout', function JsonApi(config, $q, $rootScope, $timeout) {
+    var
+      api = this,
+      broadcastApiEvent = function(resourceName, eventName, data){
+        $rootScope.$broadcast(resourceName.name + "_" + eventName, data);
+      };
 
-        this.test = function(){ console.log("JsonApi Service test(). config: ",config)};
-//        this.test = function(){ console.log("JsonApi Service test(). config.schemas: ",config.schemas)};
+    api._d = $q.defer();
+    api._init = function(){
+      switch(config.schemaType){
+        case "json-schema":
+          throw new Error("API service for json-schema not implemented.");
+          break;
 
-        /** Register the base URLs in retangular */
-        for(var modelName in this.schemas){
-            console.debug("Registering json schema: `%s`", modelName);
-            this.models[modelName] = {}; // TODO
-        }
-    }]);
+      /** Create local Models based on remote swagger spec (using swagger-js lib) **/
+        case "swagger":
+          var
+            defaultApiMethodNames = ['count', 'create', 'deleteById', 'exists', 'find', 'findById', 'findOne', 'updateAll', 'upsert'],
+            makeDefaultApiMethods = function(apiName){
+              var
+                swaggerResource = api.swagger.apis[apiName],
+                defaultApiMethods = {};
+
+              for (var k in swaggerResource){
+                var element = swaggerResource[k];
+                if (typeof element === 'function'){
+                  var
+                    kExploded = k.split("_"),
+                    methodName = kExploded.pop();
+                  if (defaultApiMethodNames.indexOf(methodName)){
+                    // Create the actual method, e.g. count()
+                    (function(thisMethodName, thisApiName){
+                      defaultApiMethods[thisMethodName] = function(args, successCb, errorCb){
+                        successCb = successCb || function(res){};
+                        errorCb = errorCb || function(err){};
+
+                        // Wrap swagger api call with promise
+                        var apiMethodPromise = $q.defer();
+                        this(args, function(res){
+                          // Success CB
+                          apiMethodPromise.resolve(res);
+                          successCb(res);
+                          broadcastApiEvent(thisApiName, "after_" + thisMethodName, res);
+                        }, function(err){
+                          // Error CB
+                          apiMethodPromise.reject(err);
+                          broadcastApiEvent(thisApiName, thisMethodName + "_error", res);
+                          errorCb(err);
+                        });
+
+                        return apiMethodPromise.promise;
+                      }.bind(element);
+                    })(methodName, apiName);
+                  }
+                }
+              } // end for each potential api method
+
+              return defaultApiMethods;
+            };
+
+          api.swaggerUrl = config.schemaUrl;
+
+          api.swagger = new SwaggerApi({
+            url: api.swaggerUrl,
+            success: function(){
+              if(api.swagger.ready === true){
+                api.swagger.apisArray.forEach(function createApiModel(swaggerApi){
+                  var apiName = swaggerApi.name;
+                  api[apiName] = makeDefaultApiMethods(apiName);
+                });
+
+                $rootScope.$apply(function(){
+                  console.info("SwaggerApi ready.");
+                  api._d.resolve(api);
+                }); // $rootScope.$apply()
+              }
+            }
+          }); // new SwaggerApi
+          break;
+
+        default:
+          throw new Error("API service not implemented for this schema type");
+      }
+    }; // api._init()
+
+    api.ready = api._d.promise;
+    api._init();
+
+    return api;
+  }]);
