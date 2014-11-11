@@ -28,7 +28,7 @@ angular.module('crudKit')
       console.debug("ckForm: save()");
       $rootScope.$broadcast('validationReset', $scope.schema);
 
-      if ($scope.validate().valid){
+//      if ($scope.validate().valid){
         console.debug("ckForm: calling onSave");
         $scope.onSave({
           '$model': $scope.model,
@@ -42,9 +42,9 @@ angular.module('crudKit')
             }
           }
         }); // TODO handle save handler's return? promise? or?
-      } else {
-        // validation failed
-      }
+//      } else {
+//        // validation failed
+//      }
     };
 
     $scope.delete = function(){
