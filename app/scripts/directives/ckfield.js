@@ -10,7 +10,7 @@ angular.module('crudKit')
   .directive('ckField', ['$http','$compile', 'crudKitConfig',function ($http, $compile, crudKitConfig) {
 
     var getTemplateUrl = function(type) {
-      console.log(type);
+      //console.log(type);
       var templateUrl = '';
 
       switch(type) {

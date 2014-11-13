@@ -108,8 +108,8 @@ angular.module('crudKit')
 
           },
           post: function(scope, element, attrs, controllerInstance) {
-            console.info("FormControl: ",scope.name);
-            console.debug(element.contents());
+            //console.log("FormControl: ",scope.name);
+            //console.debug(element.contents());
           }
         }
       }
