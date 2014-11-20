@@ -16,6 +16,10 @@ angular.module('crudKit')
       };
 
     api._d = $q.defer();
+    /**
+     * Initializes the API according to the schemaType
+     * @private
+     */
     api._init = function(){
       switch(config.schemaType){
         case "json-schema":
@@ -92,6 +96,25 @@ angular.module('crudKit')
           throw new Error("API service not implemented for this schema type");
       }
     }; // api._init()
+    /**
+     * Sets an authorization token for all API queries
+     * @param keyName
+     * @param keyValue
+     */
+    api.setApiKey = function(keyName, keyValue){
+      switch(config.schemaType){
+        case "json-schema":
+          throw new Error("API key for json-schema not implemented.");
+          break;
+
+        case "swagger":
+          authorizations.add("apiKey", new ApiKeyAuthorization(keyName,keyValue,"query"));
+          break;
+
+        default:
+          throw new Error("API key not supported for this schemaType");
+      }
+    };
 
     api.ready = api._d.promise;
     api._init();
