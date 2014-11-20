@@ -161,4 +161,21 @@ angular.module('crudKit')
       }
       //,link: linker
     };
-  }]);
+  }])  
+/**
+ * ckBindModel - to convert dynamic model name to ngModel, allow deep model name
+ * @param  {[type]} $compile [description]
+ * @return {[type]}          [description]
+ */
+  .directive('ckBindModel',function($compile){
+      return{
+          compile:function(tEl,tAtr){          
+            tEl[0].removeAttribute('ck-bind-model');
+              return function(scope){
+                tEl[0].setAttribute('ng-model',tAtr.ckBindModel);
+                $compile(tEl[0])(scope);                  
+              }
+          }
+      }
+  })
+;
