@@ -3,7 +3,7 @@
         <label class="control-label">{{title || fieldName}}</label>
         <div class="input-group">
             <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"> </i></span>
-            <input tooltip-html-unsafe="{{err.message}}" type="text" ng-model="model[fieldName]" ng-required="field.field_required" class="form-control" placeholder="{{title || fieldName}}">
+            <input tooltip-html-unsafe="{{err.message}}" type="text" ck-bind-model="model.{{fieldName}}" ng-required="field.field_required" class="form-control" placeholder="{{title || fieldName}}">
             <!--<span class="input-group-addon">.00</span>-->
         </div>
     </div>

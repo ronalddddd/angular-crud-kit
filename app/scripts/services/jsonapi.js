@@ -58,7 +58,7 @@ angular.module('crudKit')
                         }, function(err){
                           // Error CB
                           apiMethodPromise.reject(err);
-                          broadcastApiEvent(thisApiName, thisMethodName + "_error", res);
+                          broadcastApiEvent(thisApiName, thisMethodName + "_error", err);
                           errorCb(err);
                         });
 

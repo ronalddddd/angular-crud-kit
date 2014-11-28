@@ -7,7 +7,7 @@
  * # ckField
  */
 angular.module('crudKit')
-  .directive('ckField', ['$http','$compile', 'crudKitConfig',function ($http, $compile, crudKitConfig) {
+  .directive('ckField', ['$http','$compile', 'crudKitConfig', '$parse',function ($http, $compile, crudKitConfig, $parse) {
 
     var getTemplateUrl = function(type) {
       //console.log(type);
@@ -103,8 +103,13 @@ angular.module('crudKit')
       });
 
       $scope.$watch('model',function(val){
-        //console.debug("Field val changed.",$scope.model[$scope.fieldName]);
-        $scope.formController.updateModelField($scope.fieldName, $scope.model[$scope.fieldName]);
+        // console.debug("Field val changed.",$scope.model[$scope.fieldName]);
+        // $scope.formController.updateModelField($scope.fieldName, $scope.model[$scope.fieldName]);
+
+        //get new val
+        var new_val = $parse($scope.fieldName)($scope.model);
+        $scope.formController.updateModelField($scope.fieldName, new_val);        
+        
       },true);
 
       $scope.$watch('formController.getScope().model',function(val){
@@ -132,7 +137,10 @@ angular.module('crudKit')
       scope.title = options.label;
       scope.property = property;
       // Default field value
-      scope.model[scope.fieldName] = (property.default)? property.default:null;
+      // scope.model[scope.fieldName] = (property.default)? property.default:null;      
+      var getter = $parse(scope.fieldName);
+      if (getter(scope.model) === undefined)
+        getter.assign(scope.model, (property.default)? property.default:null);
 
       $http.get(getTemplateUrl(options.template)).success(function(data) {
         element.html(data);

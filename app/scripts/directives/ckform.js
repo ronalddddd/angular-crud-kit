@@ -7,7 +7,7 @@
  * # ckForm
  */
 angular.module('crudKit')
-  .controller('ckFormCtrl', ['$rootScope','$scope', '$element','JSONValidator', 'JsonApi', function($rootScope,$scope, $element, JSONValidator, JsonApi){
+  .controller('ckFormCtrl', ['$rootScope','$scope', '$element','JSONValidator', 'JsonApi', '$parse', function($rootScope,$scope, $element, JSONValidator, JsonApi, $parse){
     /** controller defs */
     $scope.master = angular.copy($scope.model);
     $scope.validationResult = null;
@@ -56,7 +56,10 @@ angular.module('crudKit')
     };
 
     this.updateModelField = function(key, val){
-      $scope.model[key] = val;
+      // $scope.model[key] = val;
+
+      var getter = $parse(key);
+      getter.assign($scope.model, val);
     };
 
 //    this.registerFieldElement = function(el){

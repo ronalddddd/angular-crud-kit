@@ -2,7 +2,7 @@
     <div class="col-md-12 form-group {{(err)? 'has-error':''}}">
         <!--<span class="input-group-addon">$</span>-->
             <label class="control-label">{{title || fieldName}}</label>
-            <textarea tooltip-html-unsafe="{{err.message}}" ng-model="model[fieldName]" ng-required="field.field_required" class="form-control" placeholder="{{title || fieldName}}">
+            <textarea tooltip-html-unsafe="{{err.message}}" ck-bind-model="model.{{fieldName}}" ng-required="field.field_required" class="form-control" placeholder="{{title || fieldName}}">
         <!--<span class="input-group-addon">.00</span>-->
     </div>
 </div>

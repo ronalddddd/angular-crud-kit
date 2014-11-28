@@ -4,7 +4,7 @@
             <input  class=""
                     tooltip-html-unsafe="{{err.message}}"
                     type="checkbox"
-                    ng-model="model[fieldName]"
+                    ck-bind-model="model.{{fieldName}}"
                     ng-required="false"/>
             {{title || fieldName}}
         </label>

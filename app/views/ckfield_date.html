@@ -4,7 +4,7 @@
         <div class="input-group">
             <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"> </i></span>
             <input type="text" class="form-control"
-                   ng-model="model[fieldName]" tooltip-html-unsafe="{{err.message}}" placeholder="{{title || fieldName}}"
+                   ck-bind-model="model.{{fieldName}}" tooltip-html-unsafe="{{err.message}}" placeholder="{{title || fieldName}}"
                    datepicker-popup="dd-MMMM-yyyy" is-open="opened" close-text="Close" />
         </div>
     </div>
