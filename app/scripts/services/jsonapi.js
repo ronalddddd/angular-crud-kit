@@ -29,7 +29,6 @@ angular.module('crudKit')
       /** Create local Models based on remote swagger spec (using swagger-js lib) **/
         case "swagger":
           var
-            defaultApiMethodNames = ['count', 'create', 'deleteById', 'exists', 'find', 'findById', 'findOne', 'updateAll', 'upsert'],
             makeDefaultApiMethods = function(apiName){
               var
                 swaggerResource = api.swagger.apis[apiName],
@@ -38,10 +37,14 @@ angular.module('crudKit')
               for (var k in swaggerResource){
                 var element = swaggerResource[k];
                 if (typeof element === 'function'){
+                  // extract this method if it's a Endpoint related function
+                  // e.g. ModelNames.ModelName_count() will be extracted as count()
+                  // TODO: this dangerously assumes all endpoint functions
                   var
                     kExploded = k.split("_"),
-                    methodName = kExploded.pop();
-                  if (defaultApiMethodNames.indexOf(methodName)){
+                    methodName = (kExploded.length === 2)? kExploded.pop() : null;
+
+                  if (methodName){
                     // Create the actual method, e.g. count()
                     (function(thisMethodName, thisApiName){
                       defaultApiMethods[thisMethodName] = function(args, successCb, errorCb){
